@@ -1,3 +1,6 @@
+# -----------------------------------------------------------
+# Tic-Tac-Toe Game
+# -----------------------------------------------------------
 
 def field_print(massive):
 
@@ -17,7 +20,7 @@ def massive_checker(list_of_two, massive):
 
 
 def input_checker():
-
+    """Function checks the input and returns it if it is correct.  """
     flag = True
 
     while flag:
@@ -44,10 +47,18 @@ def input_checker():
 
 
 def winner_checker(char_n, num_mas, massive):
+    """This function checks the winner on each move.
+
+    By the last entered coordinates and the character, respectively. Obviously in massive.
+    char_n -- the element for finding a winning sequence
+    num_mas -- the list of two numbers, exactly like a coordinates
+
+    """
     row = True
     colm = True
     diag = False
 
+    # Row and columns check
     for ind in range(3):
         if massive[num_mas[0]-1][ind] != char_n:
             row = False
@@ -55,6 +66,7 @@ def winner_checker(char_n, num_mas, massive):
         if massive[ind][num_mas[1]-1] != char_n:
             colm = False
 
+    # Diagonal check
     if massive[1][1] == char_n:
 
         if sum(num_mas)-2 != 2:
@@ -73,16 +85,24 @@ def winner_checker(char_n, num_mas, massive):
         return False
 
 
+"""Main() for this game.  """
+
+
+print("Hello. This is a Tic-tac-toe game.\n"
+      "You input a two coordinates in turn on 3x3 field and try to win.\n"
+      "Good Luck!")
+
 answer = 1
 while answer:
     tic_toe = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']]
 
     field_print(tic_toe)
 
+    char = 0
+
     for num in range(9):
 
-        char = 0
-
+        # Select character on this turn
         if num % 2 == 0:
             char = 'X'
         else:
@@ -94,6 +114,7 @@ while answer:
         tic_toe[coord_num[0] - 1][coord_num[1] - 1] = char
 
         if num > 3:
+            # This block will be executed after turn 4, since it impossible to find a winner before
             if winner_checker(char, coord_num, tic_toe):
                 field_print(tic_toe)
                 print(f"{char} wins")
@@ -107,7 +128,7 @@ while answer:
         else:
             field_print(tic_toe)
 
-    quest_answer = input("You wanna new game? If not write a zero:")
+    quest_answer = input("You wanna new game? ")
 
     if "no" in quest_answer:
         answer = 0
